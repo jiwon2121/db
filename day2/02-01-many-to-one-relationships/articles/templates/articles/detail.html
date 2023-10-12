@@ -24,10 +24,14 @@
   <ul>
     {% for comment in comments %}
       <li>{{ comment.content }}</li>
+      <form action="{% url "articles:comments_delete" article.pk comment.pk %}">
+        {% csrf_token %}
+        <input type="submit" value="삭제">
+      </form>
     {% endfor %}
   </ul>
   <hr>
-  <form action="{% url "articles:comments_create" article.pk %}" method="POST">
+  <form action="{% url "articles:comment_create" article.pk %}" method="POST">
     {% csrf_token %}
     {{ comment_form }}
     <input type="submit">
